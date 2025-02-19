@@ -1,8 +1,5 @@
 package main;
 import io.IO;
-import board.Board;
-import piece.Coordinate;
-import piece.Piece;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -10,6 +7,10 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import component.Board;
+import component.Coordinate;
+import component.Piece;
 
 
 public class Main {
@@ -31,38 +32,30 @@ public class Main {
         List<Piece> pieces = new ArrayList<Piece>();
         for(int i=0; i < matrixPieces.size(); i++){
             Set<Coordinate> pieceCoordinate = new HashSet<Coordinate>();
+            Character character = matrixPieces.get(i)[0][0];
             pieceCoordinate = Piece.matrixToCoordinate(matrixPieces.get(i));
-            Piece newPiece = new Piece(pieceCoordinate, new Color(9*i,9*i,9*i));
+            Piece newPiece = new Piece(pieceCoordinate, character, new Color(9*i,9*i,9*i));
             pieces.add(i, newPiece);     
         }
         
-        for (Piece piece : pieces) {
-            System.out.println(piece);
-        }
+        // for (Piece piece : pieces) {
+        //     System.out.println(piece);
+        // }
 
+        // Setup Board
         String[] splitNMP = stringNMP.split(" ");
         int N = Integer.parseInt(splitNMP[0]);
         int M = Integer.parseInt(splitNMP[1]);
         int P = Integer.parseInt(splitNMP[2]);
-        
-        // for (int k = 0; k < matrixPieces.size(); k++) {
-        //     System.out.println("Piece " + (char) ('A' + k) + ":");
-        //     IO.printMatrix(matrixPieces.get(k));
-        //     System.out.println();
-        // }
-        // System.out.println(Arrays.toString(config));
-        // System.out.println(arrayPieces);
-        // System.out.println(boardtype);
-        // System.out.println(N);
-        // System.out.println(M);
-        // System.out.println(P);
+        Board board = new Board(N, M); //Nanti Cek Boardtype 
 
-        int[][] board = Board.initBoard(N, M); //Nanti Cek Boardtype 
+        // Solver
+        boolean isFinished = false;
+        boolean isPieceEmpty = false;
 
+        while(!isFinished){
 
-
-
-
+        }
 
     }
 }

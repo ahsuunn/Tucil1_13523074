@@ -1,4 +1,4 @@
-package piece;
+package component;
 import java.util.Set;
 import java.awt.Color;
 import java.util.HashSet;
@@ -6,11 +6,23 @@ import java.util.Random;
 
 public class Piece{ 
     Set<Coordinate> shape;
+    Character character;
     Color color;
 
-    public Piece(Set<Coordinate> shape, Color color){
+    public Piece(Set<Coordinate> shape, Character character, Color color){
         this.shape = shape;
+        this.character = character;
         this.color = color;
+    }
+
+    public Set<Coordinate> getPieceShape(){
+        return shape;
+    }
+    public Character getPieceCharacter(){
+        return character;
+    }
+    public Color getColor(){
+        return color;
     }
 
     public static Set<Coordinate> matrixToCoordinate(char[][] piece){
@@ -48,6 +60,6 @@ public class Piece{
 
     @Override
     public String toString() {
-        return "Piece{shape=" + shape + ", color=" + color + "}";
+        return "Piece{shape=" + shape + ", char=" +  character+ ", color=" + color + "}";
     }
 }
