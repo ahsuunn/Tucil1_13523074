@@ -1,16 +1,11 @@
 package piece;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 public class Coordinate {
     int x,y;
 
     public Coordinate(int x, int y){
         this.x = x ;
-        this.y = x;
+        this.y = y;
     }
 
     public Coordinate rotate90Clockwise(){
@@ -34,10 +29,12 @@ public class Coordinate {
         }
     }
 
+    @Override
     public int hashCode(){
         return 31 * x + y;
     }
 
+    @Override
     public String toString(){
         return "(" + x + ", " + y + ")";
     }

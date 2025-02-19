@@ -2,6 +2,7 @@ package piece;
 import java.util.Set;
 import java.awt.Color;
 import java.util.HashSet;
+import java.util.Random;
 
 public class Piece{ 
     Set<Coordinate> shape;
@@ -12,11 +13,41 @@ public class Piece{
         this.color = color;
     }
 
+    public static Set<Coordinate> matrixToCoordinate(char[][] piece){
+        Set<Coordinate> pieceCoordinate = new HashSet<Coordinate>();
+        int height = piece.length;
+        int width = piece[0].length;
+        // System.out.println("height: "+ height);
+        // System.out.println("width: " + width + "\n");
+        int x = 0;
+        int y = 0;
+
+        for(int r = 0; r < height; r++){
+            for(int c = 0; c < width; c++){
+                if (piece[r][c] != '.'){
+                    x = c ;
+                    y = height - r - 1;
+                    // System.out.println(piece[r][c]);
+                    // System.out.println("x: " + x);
+                    // System.out.println("y: "+ y);
+                    Coordinate newCoordinate = new Coordinate(x, y);
+                    pieceCoordinate.add(newCoordinate);
+                }
+            }
+        }
+        return pieceCoordinate;
+    }
+
     public Set<Coordinate> translateCoordinates(int dx, int dy){
         Set<Coordinate> newShape = new HashSet<Coordinate>();
         for(Coordinate coord : shape){
             newShape.add(new Coordinate(coord.x + dx, coord.y + dy));
         }
         return newShape;
+    }
+
+    @Override
+    public String toString() {
+        return "Piece{shape=" + shape + ", color=" + color + "}";
     }
 }
