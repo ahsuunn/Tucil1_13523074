@@ -58,6 +58,9 @@ public class Main {
         // int P = Integer.parseInt(splitNMP[2]);
         new Board(N, M); //Nanti Cek Boardtype 
 
+        // Start Timer
+        long startTime = System.nanoTime();
+
         // Solver
         Solver.setPieces(pieces);
         if(Solver.solve(0)){
@@ -66,6 +69,13 @@ public class Main {
         }else{
             System.out.println("Didn't found any solution");
         }
+
+        // Finish Timer        
+        long endTime = System.nanoTime();
+        long executionTime
+            = (endTime - startTime) / 1000000;
+
+        System.out.println("Execution time: " + executionTime + "ms");
 
         // Output File
         Character[][] solutionMatrix = Board.getBoard();
