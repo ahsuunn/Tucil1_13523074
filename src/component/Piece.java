@@ -2,7 +2,7 @@ package component;
 import java.util.Set;
 import java.awt.Color;
 import java.util.HashSet;
-import java.util.Random;
+// import java.util.Random;
 
 public class Piece{ 
     Set<Coordinate> shape;
@@ -23,6 +23,11 @@ public class Piece{
     }
     public Color getColor(){
         return color;
+    }
+    
+    @Override
+    public String toString() {
+        return "Piece{shape=" + shape + ", char=" +  character+ ", color=" + color + "}";
     }
 
     public static Set<Coordinate> matrixToCoordinate(char[][] piece){
@@ -49,6 +54,15 @@ public class Piece{
         }
         return pieceCoordinate;
     }
+    
+    public Piece rotate90Clockwise(){
+        Set<Coordinate> rotatedShape = new HashSet<>();
+        for (Coordinate coordinate : shape) {
+            Coordinate rotatedCoordinate = coordinate.rotate90Clockwise();
+            rotatedShape.add(rotatedCoordinate);
+        }
+        return new Piece(rotatedShape, character, color);
+    }
 
     public Set<Coordinate> translateCoordinates(int dx, int dy){
         Set<Coordinate> newShape = new HashSet<Coordinate>();
@@ -58,8 +72,4 @@ public class Piece{
         return newShape;
     }
 
-    @Override
-    public String toString() {
-        return "Piece{shape=" + shape + ", char=" +  character+ ", color=" + color + "}";
-    }
 }

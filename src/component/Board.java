@@ -1,31 +1,43 @@
 package component;
 
+import java.util.Arrays;
 import java.util.Set;
 
 public class Board{
-    private Character[][] board;
-    private int width;
-    private int height;
+    private static Character[][] board;
+    private static int width;
+    private static int height;
 
     public Board(int n, int m) {
-        this.width = m;
-        this.height = n;
-        this.board = new Character[n][m];
+        height = n;
+        width = m;
+        board = new Character[n][m];
         fillBoard(board, 'o'); // Fill board with default character
     }
 
-    public Character[][] getBoard() {
+    public static Character[][] getBoard() {
         return board;
     }
-    public int getWidth() {
+    public static int getWidth() {
         return width;
     }
-    public int getHeight() {
+    public static int getHeight() {
         return height;
     }
 
-    public boolean isEmpty(int x, int y){
-            return board[x][y] == 'o';
+    public static boolean isEmpty(int x, int y){
+            return board[y][x] == 'o';
+    }
+    
+    public static boolean isFull(){
+        for (Character[] characters : board) {
+            for (Character character : characters) {
+                if(character == 'o'){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public static void fillBoard(Character[][] board, Character val){
@@ -33,27 +45,33 @@ public class Board{
         int m = board[0].length;
 
         for(int i = 0; i < n; i++){
-            for(int j = 0; i < m; j++){
+            for(int j = 0; j < m; j++){
                 board[i][j] = val;
             }
         }
     }
-
-    public void placePiece(Piece piece, int startX, int startY, char pieceId) {        
+    
+    public static void placePiece(Piece piece, int startX, int startY) {        
         Set<Coordinate> pieceCoordinate = piece.getPieceShape();
         for (Coordinate coord : pieceCoordinate) {
             int x = startX + coord.getX();
-            int y = startY + coord.getY();
-            board[y][x] = pieceId;
+            int y = (Board.getHeight() - 1 - (startY + coord.getY()));
+            board[y][x] = piece.character;
         }
     }
     
-    public void removePiece(Piece piece, int startX, int startY) {
+    public static void removePiece(Piece piece, int startX, int startY) {
         Set<Coordinate> pieceCoordinate = piece.getPieceShape();
         for (Coordinate coord : pieceCoordinate) {
             int x = startX + coord.getX();
-            int y = startY + coord.getY();
+            int y = (Board.getHeight() - 1 - (startY + coord.getY())) ;
             board[y][x] = 'o';
+        }
+    }
+
+    public static void printBoard(){
+        for (Character[] row : board) {
+            System.out.println(Arrays.toString(row));
         }
     }
 }
