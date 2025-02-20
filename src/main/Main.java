@@ -74,8 +74,9 @@ public class Main {
         long endTime = System.nanoTime();
         long executionTime
             = (endTime - startTime) / 1000000;
-
         System.out.println("Execution time: " + executionTime + "ms");
+        System.out.println("Iteration : " + Solver.getIterationCount());
+        
 
         // Output File
         Character[][] solutionMatrix = Board.getBoard();

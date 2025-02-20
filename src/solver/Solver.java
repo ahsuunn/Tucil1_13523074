@@ -5,9 +5,14 @@ import component.*;
 
 public class Solver{
     private static List<Piece> pieces;
+    static int iterationCount = 0;
 
     public static void setPieces(List<Piece> pieceList) {
         pieces = pieceList;
+    }
+
+    public static int getIterationCount(){
+        return iterationCount;
     }
 
     public static boolean solve(int pieceIndex) {
@@ -22,6 +27,7 @@ public class Solver{
                 Piece rotatedPiece = piece;
 
                 for (int rotation = 0; rotation < 4; rotation++) { // Coba semua rotasi
+                    iterationCount++;
                     if (canPlacePiece(rotatedPiece, x, y)) {
                         Board.placePiece(rotatedPiece, x, y);
                         System.out.println("Placed piece " + (pieceIndex + 1) + " at (" + x + ", " + y + ") with rotation " + rotation);
