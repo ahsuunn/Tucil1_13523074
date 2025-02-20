@@ -17,8 +17,11 @@ import component.Piece;
 public class Main {
     public static void main(String[] args) throws Exception{
         // Read File
-        String filepath = "C:\\Users\\thema\\Informatics\\Language\\Java\\Tucil1_13523074\\test\\1.txt";
-        String[] config = IO.readConfig(filepath);
+        String inputPath = "test\\input\\";
+        String filepath = "1.txt";
+        inputPath = inputPath.concat(filepath);
+        System.out.println(inputPath);
+        String[] config = IO.readConfig(inputPath);
         
         // Take element
         String stringNMP = config[0];
@@ -62,6 +65,17 @@ public class Main {
             Board.printBoard();
         }else{
             System.out.println("Didn't found any solution");
+        }
+
+        // Output File
+        Character[][] solutionMatrix = Board.getBoard();
+        while(true){
+            try {
+                IO.saveMatrixToFile(solutionMatrix);
+                break;
+            } catch (Exception e) {
+                System.err.println(e);
+            }
         }
     }
 }

@@ -2,6 +2,9 @@ package io;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -88,5 +91,75 @@ public class IO {
         for (char[] row : matrix) {
             System.out.println(Arrays.toString(row));
         }
+    }
+
+    public static boolean checkFilePath(String outputPath) throws IOException{
+        File file = new File(outputPath);
+        return file.exists();
+    }
+
+    public static void writeMatrixToFile(Character[][] matrix, String outputPath) throws IOException {
+        // Will overwrite if there's any file with the same name, implement with file path checking
+        FileWriter fileWriter = new FileWriter(outputPath);
+        PrintWriter printWriter = new PrintWriter(fileWriter);
+
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                printWriter.print(matrix[i][j]); 
+            }
+            printWriter.println();
+        }
+
+        printWriter.close(); 
+    }
+
+    public static void saveMatrixToFile(Character[][] matrix) throws IOException{
+        Scanner scanner = new Scanner(System.in);
+        String directoryPath =  "test\\output\\";
+        String outputPath = "";
+        outputPath = outputPath.concat(directoryPath);
+        
+        while (true) {
+            System.out.println("Save Hasil ke file?(Y/n)");
+            char save = scanner.nextLine().charAt(0);
+            if (save == 'Y' || save == 'y') {
+                System.out.println("Masukkan nama file e.g (out.txt): ");
+                String filename = scanner.nextLine();
+                outputPath = outputPath.concat(filename);
+
+                boolean isFileExists = checkFilePath(outputPath);
+                if (isFileExists){
+                    System.out.println("Terdapat file dengan nama yang sama apakah anda ingin overwrite? (y/N)");
+                    char overwrite = scanner.next().charAt(0);
+                    if (overwrite == 'Y' || overwrite == 'y'){
+                        writeMatrixToFile(matrix, outputPath);
+                        System.out.println("File berhasil di simpan pada " + outputPath);
+                        break;
+                    }
+                    else if (overwrite == 'n' || overwrite == 'N') {
+                        System.out.println("File tidak disimpan\n");
+                        break;
+                    } else {
+                        System.out.println("Masukkan 'Y' untuk ya atau 'n' untuk tidak\n");
+                        break;
+                    }
+                }
+                else{
+                    writeMatrixToFile(matrix, outputPath);
+                    System.out.println("File berhasil di simpan pada " + outputPath);
+                }
+
+                break;
+            }
+
+            else if (save == 'n' || save == 'N') {
+                System.out.println("File tidak disimpan.\n");
+                break; // Exit the loop without saving
+            } else {
+                System.out.println("Masukkan 'Y' untuk ya atau 'n' untuk tidak\n");
+                break;
+            }
+        }
+        scanner.close();
     }
 }
