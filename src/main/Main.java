@@ -4,7 +4,7 @@ import solver.Solver;
 
 import java.awt.Color;
 import java.util.ArrayList;
-// import java.util.Arrays;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,9 +27,11 @@ public class Main {
         String stringNMP = config[0];
         // String boardtype = config[1];
         String stringPieces = config[2];
+        System.out.println(stringPieces);
         
         // Convert to Matrix
-        String[] arrayPieces = stringPieces.split(" ");
+        String[] arrayPieces = stringPieces.split("\n");
+        // System.out.println(Arrays.toString(arrayPieces));
         List<char[][]> matrixPieces = IO.piecesToMatrix(arrayPieces);
         for (int i = 0; i < matrixPieces.size(); i++) {
             IO.printMatrix(matrixPieces.get(i));
@@ -40,10 +42,26 @@ public class Main {
         List<Piece> pieces = new ArrayList<Piece>();
         for(int i=0; i < matrixPieces.size(); i++){
             Set<Coordinate> pieceCoordinate = new HashSet<Coordinate>();
-            Character character = matrixPieces.get(i)[0][0];
+            
+            boolean foundChar = false;
+            Character character = null;
+            int j = 0;
+            while(!foundChar){
+                character = matrixPieces.get(i)[0][j];
+                if(character == '.'){
+                    j++;
+                }
+                else{
+                    foundChar = true;
+                }
+            } 
+            character = matrixPieces.get(i)[0][j];
+            System.out.println(character);
+
             pieceCoordinate = Piece.matrixToCoordinate(matrixPieces.get(i));
             System.out.println("Character:"+ character + ", Coordinate:" + pieceCoordinate);
-            Piece newPiece = new Piece(pieceCoordinate, character, new Color(9*i,9*i,9*i));
+            Color color = IO.colors[i];
+            Piece newPiece = new Piece(pieceCoordinate, character, color);
             pieces.add(i, newPiece);     
         }
         
@@ -82,7 +100,7 @@ public class Main {
         Character[][] solutionMatrix = Board.getBoard();
         while(true){
             try {
-                IO.saveMatrixToFile(solutionMatrix);
+                IO.saveMatrixToFile(solutionMatrix, pieces);
                 break;
             } catch (Exception e) {
                 System.err.println(e);
