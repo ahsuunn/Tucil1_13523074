@@ -24,27 +24,33 @@ public class Solver{
         
         for (int y = Board.getHeight() - 1; y >= 0; y--) {
             for (int x = 0; x < Board.getWidth(); x++) {
-                Piece rotatedPiece = piece;
+                for(int flip = 0; flip < 3; flip++){
+                    Piece flipedPiece = piece;
 
-                for (int rotation = 0; rotation < 4; rotation++) { // Coba semua rotasi
-                    iterationCount++;
-                    if (canPlacePiece(rotatedPiece, x, y)) {
-                        Board.placePiece(rotatedPiece, x, y);
-                        System.out.println("Placed piece " + (pieceIndex + 1) + " at (" + x + ", " + y + ") with rotation " + rotation);
-                        Board.printBoard();
-                        if (solve(pieceIndex + 1)) {
-                            return true;
-                        }
-                        
-                        Board.removePiece(rotatedPiece, x, y); // Backtrack
-                        System.out.println("Remove piece " + (pieceIndex + 1) + " at (" + x + ", " + y + ")");
+                    if(flip == 1){
+                        flipedPiece = flipedPiece.flipPieceHorizontal();
+                    }else if (flip==2){
+                        flipedPiece = flipedPiece.flipPieceVertical();
                     }
-                    rotatedPiece = rotatedPiece.rotate90Clockwise();
+
+                    Piece rotatedPiece = flipedPiece;
+                    for (int rotation = 0; rotation < 4; rotation++) { // Coba semua rotasi
+                        iterationCount++;
+                        if (canPlacePiece(rotatedPiece, x, y)) {
+                            Board.placePiece(rotatedPiece, x, y);
+                            if (solve(pieceIndex + 1)) {
+                                return true;
+                            }
+                            
+                            Board.removePiece(rotatedPiece, x, y); // Backtrack
+                        }
+                        rotatedPiece = rotatedPiece.rotate90Clockwise();
+                    }
                 }
             }
         }
 
-        return false; // No valid placement found
+        return false;
     }
 
     public static boolean canPlacePiece(Piece piece, int initX, int initY){

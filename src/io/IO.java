@@ -152,9 +152,10 @@ public class IO {
                 outputPath = outputPath.concat(filename);
                 String outputPathTXT = outputPath.concat(".txt");
                 String outputPathPNG = outputPath.concat(".png");
-                System.out.println(outputPathPNG);
-
-                boolean isFileExists = checkFilePath(outputPath);
+                // System.out.println(outputPathPNG);
+                
+                
+                boolean isFileExists = checkFilePath(outputPathTXT);
                 if (isFileExists){
                     System.out.println("Terdapat file dengan nama yang sama apakah anda ingin overwrite? (y/N)");
                     char overwrite = scanner.next().charAt(0);
@@ -173,7 +174,8 @@ public class IO {
                     }
                 }
                 else{
-                    writeMatrixToFile(matrix, outputPath);
+                    writeMatrixToFile(matrix, outputPathTXT);
+                    matrixToImage(matrix, pieces, outputPathPNG);
                     System.out.println("File berhasil di simpan pada " + outputPath);
                 }
 
@@ -204,22 +206,24 @@ public class IO {
         g.setFont(new Font("SansSerif", Font.PLAIN, 30));
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, width, height);
-        g.rotate(Math.toRadians(180), width / 2.0, height / 2.0); // Rotate 180deg
+        g.drawImage(image, 0, 0 + height, width, -height, null);
 
         for (int row = 0; row < board.length; row++) {
-            for (int col = 0; col < board[row].length; col++) {
+            for (int col = 0; col < board[0].length; col++) {
                 char ch = board[row][col];
                 for (Piece piece : pieces) {
                     if(piece.getPieceCharacter() == ch){
                         Color pieceColor = piece.getColor();
                         g.setColor(pieceColor);
+                        break;
                     }
                 }
                 int xRect = col * cellSize;
-                int yRect = height - (row + 1) * cellSize;
+                int yRect = row  * cellSize;
                 g.fillRoundRect(xRect, yRect, cellSize, cellSize, 15, 15 );
                 g.setColor(Color.WHITE);
                 g.drawRect(xRect, yRect, cellSize, cellSize);
+                // g.draw3DRect(xRect, yRect, cellSize, cellSize, true);
                 
                 // int xChar = col * cellSize + 15;
                 // int yChar = (row + 1) * cellSize - 10;

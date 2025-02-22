@@ -63,6 +63,23 @@ public class Piece{
         }
         return new Piece(rotatedShape, character, color);
     }
+    
+    public Piece flipPieceHorizontal(){
+        Set<Coordinate> rotatedShape = new HashSet<>();
+        for (Coordinate coordinate : shape) {
+            Coordinate rotatedCoordinate = coordinate.flipHorizontal();
+            rotatedShape.add(rotatedCoordinate);
+        }
+        return new Piece(rotatedShape, character, color);
+    }
+    public Piece flipPieceVertical(){
+        Set<Coordinate> rotatedShape = new HashSet<>();
+        for (Coordinate coordinate : shape) {
+            Coordinate rotatedCoordinate = coordinate.flipVertical();
+            rotatedShape.add(rotatedCoordinate);
+        }
+        return new Piece(rotatedShape, character, color);
+    }
 
     public Set<Coordinate> translateCoordinates(int dx, int dy){
         Set<Coordinate> newShape = new HashSet<Coordinate>();

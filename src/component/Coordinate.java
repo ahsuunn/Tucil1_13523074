@@ -18,8 +18,12 @@ public class Coordinate {
     public Coordinate rotate90Clockwise(){
         return new Coordinate(y, -x);
     }
-    public Coordinate rotate90CounterClockwise(){
-        return new Coordinate(-y, x);
+    public Coordinate flipHorizontal(){
+        return new Coordinate(x, -y);
+    }
+
+    public Coordinate flipVertical(){
+        return new Coordinate(-x, y);
     }
 
     @Override
