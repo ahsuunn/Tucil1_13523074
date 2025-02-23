@@ -84,9 +84,7 @@ public class Solver{
                 count++;
             }
         }
-        System.out.println(count);
         int boardsize = Board.getWidth() * Board.getHeight(); 
-        System.out.println(boardsize);
         if((boardsize) == count){
             return true;
         }

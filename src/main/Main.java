@@ -26,7 +26,6 @@ public class Main {
         try(Scanner scanner = new Scanner(System.in);){
             String filePath = scanner.nextLine();
             inputPath = inputPath.concat(filePath);
-            System.out.println(inputPath);
             String[] config = IO.readConfig(inputPath);
             
             // Take element
@@ -38,10 +37,6 @@ public class Main {
             // Convert to Matrix
             String[] arrayPieces = stringPieces.split("\n");
             List<char[][]> matrixPieces = IO.piecesToMatrix(arrayPieces);
-            for (int i = 0; i < matrixPieces.size(); i++) {
-                IO.printMatrix(matrixPieces.get(i));
-                // System.out.println();
-            }
     
             // Convert to Coordinate
             List<Piece> pieces = new ArrayList<Piece>();
@@ -63,29 +58,29 @@ public class Main {
                 character = matrixPieces.get(i)[0][j];
     
                 pieceCoordinate = Piece.matrixToCoordinate(matrixPieces.get(i));
-                System.out.println("Character:"+ character + ", Coordinate:" + pieceCoordinate);
-                Color color = IO.colors[i];
+                Color color = IO.COLORS[i];
                 Piece newPiece = new Piece(pieceCoordinate, character, color);
                 pieces.add(i, newPiece);     
             }
             
-                // Setup Board
-                String[] splitNMP = stringNMP.split(" ");
-                int N = Integer.parseInt(splitNMP[0]);
-                int M = Integer.parseInt(splitNMP[1]);
-                // int P = Integer.parseInt(splitNMP[2]);
-                new Board(N, M); 
-                Solver.setPieces(pieces);
-                
-                if(Solver.checkTotalPieceAgainstBoardSize()){
-                }
-                else{
-                    System.out.println("Unsolvable, Matrix piece is not equal to the board size");
-                    System.exit(0);
-                }
-                // Start Timer
-                long startTime = System.nanoTime();
-                
+            // Setup Board
+            String[] splitNMP = stringNMP.split(" ");
+            int N = Integer.parseInt(splitNMP[0]);
+            int M = Integer.parseInt(splitNMP[1]);
+            // int P = Integer.parseInt(splitNMP[2]);
+            new Board(N, M); 
+            Solver.setPieces(pieces);
+            
+            if(Solver.checkTotalPieceAgainstBoardSize()){
+            }
+            else{
+                System.out.println("Unsolvable, Matrix piece is not equal to the board size");
+                System.exit(0);
+            }
+            
+            System.out.println("Searching for the solution, this may take a while...");
+            // Start Timer
+            long startTime = System.nanoTime();
                 // Solver
             if(Solver.solve(0)){
                 System.out.println("Finished one solution found!");
@@ -105,7 +100,7 @@ public class Main {
             Character[][] solutionMatrix = Board.getBoard();
             Map<Character, String> colorMap = new HashMap<>();
             for (char c = 'A'; c <= 'Z'; c++) {
-                colorMap.put(c, Piece.TEXTCOLORS[c - 'A']);
+                colorMap.put(c, IO.TEXTCOLORS[c - 'A']);
             }
 
             Piece.printColorizedMatrix(solutionMatrix, colorMap);
