@@ -1,5 +1,4 @@
 package solver;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import component.Piece;
@@ -80,7 +79,7 @@ public class Solver{
         int count = 0;
         for (Piece piece : pieces) {
             Set<Coordinate> tempCoordinate = piece.getPieceShape();
-            for (Coordinate coordinate : tempCoordinate) {
+            for (@SuppressWarnings("unused") Coordinate Coordinate : tempCoordinate) {
                 count++;
             }
         }
