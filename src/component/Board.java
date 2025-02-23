@@ -25,6 +25,17 @@ public class Board{
         return height;
     }
 
+    public static Coordinate findFirstEmptyCol() {
+        for (int y = 0; y < getHeight(); y++) {
+            for (int x = 0; x < getWidth(); x++) {
+                if (isEmpty(x, y)) {
+                    return new Coordinate(x, y); // Return the first row that contains an empty space
+                }
+            }
+        }
+        return new Coordinate(0, 0); // If no empty space is found
+    }
+
     public static boolean isEmpty(int x, int y){
             return board[y][x] == 'o';
     }

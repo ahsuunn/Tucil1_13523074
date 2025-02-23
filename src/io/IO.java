@@ -126,7 +126,7 @@ public class IO {
         // Will overwrite if there's any file with the same name, implement with file path checking
         FileWriter fileWriter = new FileWriter(outputPath);
         PrintWriter printWriter = new PrintWriter(fileWriter);
-
+        
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
                 printWriter.print(matrix[i][j]); 
@@ -223,11 +223,10 @@ public class IO {
                 g.fillRoundRect(xRect, yRect, cellSize, cellSize, 15, 15 );
                 g.setColor(Color.WHITE);
                 g.drawRect(xRect, yRect, cellSize, cellSize);
-                // g.draw3DRect(xRect, yRect, cellSize, cellSize, true);
                 
-                // int xChar = col * cellSize + 15;
-                // int yChar = (row + 1) * cellSize - 10;
-                // g.drawString(String.valueOf(ch), xChar, yChar);
+                int xChar = col * cellSize + 15;
+                int yChar = (row + 1) * cellSize - 10;
+                g.drawString(String.valueOf(ch), xChar, yChar);
 
             }
         }

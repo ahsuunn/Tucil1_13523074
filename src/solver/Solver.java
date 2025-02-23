@@ -1,6 +1,8 @@
 package solver;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import component.Piece;
 import component.*;
 
 public class Solver{
@@ -21,9 +23,12 @@ public class Solver{
         }
 
         Piece piece = pieces.get(pieceIndex);
-        
-        for (int y = Board.getHeight() - 1; y >= 0; y--) {
-            for (int x = 0; x < Board.getWidth(); x++) {
+
+        Coordinate firstEmptyCol = Board.findFirstEmptyCol();
+        // System.out.println();
+
+        for (int y = Board.getHeight() - firstEmptyCol.getY() - 1; y >= 0; y--) {
+            for (int x = firstEmptyCol.getX(); x < Board.getWidth(); x++) {
                 for(int flip = 0; flip < 3; flip++){
                     Piece flipedPiece = piece;
 
@@ -58,7 +63,7 @@ public class Solver{
         for (Coordinate coordinate : pieceCoordinate) {
             int x = initX + coordinate.getX();
             int y = (Board.getHeight() - 1 - (initY + coordinate.getY()));
-            int boardWidth = Board.getHeight();
+            int boardWidth = Board.getWidth();
             int boardHeight = Board.getHeight();
             if (x<0 || x>= boardWidth || y < 0 || y >= boardHeight){
                 return false;
@@ -69,5 +74,24 @@ public class Solver{
             // System.out.println("Can place piece at X:" + x + "Y:" + y);
         }
         return true;
+    }
+
+    public static boolean checkTotalPieceAgainstBoardSize(){
+        int count = 0;
+        for (Piece piece : pieces) {
+            Set<Coordinate> tempCoordinate = piece.getPieceShape();
+            for (Coordinate coordinate : tempCoordinate) {
+                count++;
+            }
+        }
+        System.out.println(count);
+        int boardsize = Board.getWidth() * Board.getHeight(); 
+        System.out.println(boardsize);
+        if((boardsize) == count){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }

@@ -3,6 +3,7 @@ import java.util.Set;
 import java.awt.Color;
 import java.util.HashSet;
 // import java.util.Random;
+import java.util.Map;
 
 public class Piece{ 
     Set<Coordinate> shape;
@@ -88,5 +89,46 @@ public class Piece{
         }
         return newShape;
     }
+
+    public static final String RESET = "\u001B[0m";
+
+    public static void printColorizedMatrix(Character[][] matrix, Map<Character, String> colorMap) {
+        for (Character[] row : matrix) {
+            for (Character piece : row) {
+                String color = colorMap.getOrDefault(piece, RESET); 
+                System.out.print(color + piece + RESET + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static final String[] TEXTCOLORS = {
+        "\u001B[31m", 
+        "\u001B[32m", 
+        "\u001B[33m", 
+        "\u001B[34m", 
+        "\u001B[35m", 
+        "\u001B[36m", 
+        "\u001B[91m", 
+        "\u001B[92m", 
+        "\u001B[93m", 
+        "\u001B[94m", 
+        "\u001B[95m", 
+        "\u001B[96m", 
+        "\u001B[97m", 
+        "\u001B[90m", 
+        "\u001B[37m", 
+        "\u001B[41m", 
+        "\u001B[42m", 
+        "\u001B[43m", 
+        "\u001B[44m", 
+        "\u001B[45m", 
+        "\u001B[46m", 
+        "\u001B[47m", 
+        "\u001B[100m", 
+        "\u001B[101m", 
+        "\u001B[102m",
+        "\u001B[30m"  
+    };
 
 }
