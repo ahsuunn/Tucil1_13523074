@@ -64,9 +64,19 @@ public class Main {
             
             // Setup Board
             String[] splitNMP = stringNMP.split(" ");
+            if(splitNMP.length != 3){
+                System.err.println("Config is not valid");
+                System.exit(0);
+            }
+
             int N = Integer.parseInt(splitNMP[0]);
             int M = Integer.parseInt(splitNMP[1]);
-            // int P = Integer.parseInt(splitNMP[2]);
+            int P = Integer.parseInt(splitNMP[2]);
+            if(N<=0 || M <= 0 || P <= 0){
+                System.err.println("NMP is not valid");
+                System.exit(0);
+            }
+
             new Board(N, M); 
             Solver.setPieces(pieces);
             
