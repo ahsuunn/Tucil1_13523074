@@ -31,7 +31,6 @@ public class Main {
             String stringNMP = config[0];
             // String boardtype = config[1];
             String stringPieces = config[2];
-            // System.out.println(stringPieces);
             
             // Convert to Matrix
             String[] arrayPieces = stringPieces.split("\n");
@@ -88,9 +87,11 @@ public class Main {
             }
             
             System.out.println("Searching for the solution, this may take a while...");
+            
             // Start Timer
             long startTime = System.nanoTime();
-                // Solver
+            
+            // Solver
             if(Solver.solve(0)){
                 System.out.println("Finished one solution found!");
             }else{

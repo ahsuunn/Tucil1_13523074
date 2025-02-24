@@ -46,8 +46,6 @@ public class IO {
         catch (Exception e){
             System.err.println("Error: " + e);
         }
-        // System.out.println(config);
-        // System.out.println(boardType);
 
         scanner.close();
         return new String[]{config, boardType, pieces.toString()};
@@ -150,7 +148,6 @@ public class IO {
                 outputPath = outputPath.concat(filename);
                 String outputPathTXT = outputPath.concat(".txt");
                 String outputPathPNG = outputPath.concat(".png");
-                // System.out.println(outputPathPNG);
                 
                 
                 boolean isFileExists = checkFilePath(outputPathTXT);

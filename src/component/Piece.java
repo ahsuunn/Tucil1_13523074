@@ -2,7 +2,6 @@ package component;
 import java.util.Set;
 import java.awt.Color;
 import java.util.HashSet;
-// import java.util.Random;
 import java.util.Map;
 
 public class Piece{ 
@@ -26,17 +25,10 @@ public class Piece{
         return color;
     }
     
-    @Override
-    public String toString() {
-        return "Piece{shape=" + shape + ", char=" +  character+ ", color=" + color + "}";
-    }
-
     public static Set<Coordinate> matrixToCoordinate(char[][] piece){
         Set<Coordinate> pieceCoordinate = new HashSet<Coordinate>();
         int height = piece.length;
         int width = piece[0].length;
-        // System.out.println("height: "+ height);
-        // System.out.println("width: " + width + "\n");
         int x = 0;
         int y = 0;
 
@@ -45,9 +37,6 @@ public class Piece{
                 if (piece[r][c] != '.'){
                     x = c ;
                     y = height - r - 1;
-                    // System.out.println(piece[r][c]);
-                    // System.out.println("x: " + x);
-                    // System.out.println("y: "+ y);
                     Coordinate newCoordinate = new Coordinate(x, y);
                     pieceCoordinate.add(newCoordinate);
                 }
@@ -90,6 +79,10 @@ public class Piece{
         return newShape;
     }
 
+    @Override
+    public String toString() {
+        return "Piece{shape=" + shape + ", char=" +  character+ ", color=" + color + "}";
+    }
     public static final String RESET = "\u001B[0m";
 
     public static void printColorizedMatrix(Character[][] matrix, Map<Character, String> colorMap) {

@@ -24,7 +24,6 @@ public class Solver{
         Piece piece = pieces.get(pieceIndex);
 
         Coordinate firstEmptyCol = Board.findFirstEmptyCol();
-        // System.out.println();
 
         for (int y = Board.getHeight() - firstEmptyCol.getY() - 1; y >= 0; y--) {
             for (int x = firstEmptyCol.getX(); x < Board.getWidth(); x++) {
@@ -70,7 +69,6 @@ public class Solver{
             if(!Board.isEmpty(x, y)){
                 return false;
             }
-            // System.out.println("Can place piece at X:" + x + "Y:" + y);
         }
         return true;
     }
